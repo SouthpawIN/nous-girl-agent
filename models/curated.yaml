@@ -14,7 +14,7 @@
 # - eikon:                eikon sprite/persona name (must exist in pet/sprites/)
 # - voice:
 #     source:             model | edge-tts | melotts | cosyvoice | bark
-#     edge_voice:         fallback Edge TTS voice (e.g. en-US-JennyNeural)
+#     edge_voice:         fallback Edge TTS voice (e.g. en-US-AvaNeural)
 #     model_voice_config: optional config for model-native voice output
 # - music:
 #     source:             model | heartmula | ace-step | playlist | none
@@ -23,4 +23,167 @@
 # - capabilities:         subset of [text, voice, music, vision, tools]
 # - notes:                free-form notes from mu
 
-models: []
+models:
+  # === MULTIMODAL NATIVE (default) ===
+  - id: qwen-omni-3b
+    display_name: Qwen 2.5 Omni 3B
+    tier: multimodal-native
+    backend: llama.cpp
+    model_path: ~/Models/storage/gguf/Qwen2.5-Omni-3B-GGUF/Qwen2.5-Omni-3B-Q4_K_M.gguf
+    mmproj_path: ~/Models/storage/gguf/Qwen2.5-Omni-3B-GGUF/mmproj-Qwen2.5-Omni-3B-Q8_0.gguf
+    api_base: null
+    api_key_env: null
+    default: true
+    eikon: nous-girl
+    voice:
+      source: model
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, voice, vision, tools]
+    notes: |
+      Default pet model. Multimodal native — text + voice + vision inputs,
+      text + voice outputs. 1.96GB GGUF + 1.43GB mmproj. Fits 24GB GPU easily.
+      Music still falls back to playlist (no native music output).
+
+  # === TEXT + EDGE TTS FALLBACK ===
+  - id: darwin-28b
+    display_name: Darwin 28B Reason
+    tier: text-with-tts
+    backend: llama.cpp
+    model_path: ~/Models/storage/gguf/Darwin-28B-REASON.Q4_K_M.gguf
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      Text-only. 15.4GB. Voice falls back to Edge TTS. Music falls back to playlist.
+      Heavier reasoning model — good for technical chats.
+
+  - id: apex-mtp
+    display_name: APEX-MTP I-Compact
+    tier: text-with-tts
+    backend: llama.cpp
+    model_path: ~/Models/storage/gguf/Qwen3.6-35B-A3B-APEX-MTP-I-Compact.gguf
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      16.1GB Qwen3.6-35B-A3B MoE (Compact variant). MTP speculative decoding.
+      Text-only — Edge TTS + playlist fallback.
+
+  - id: qwen-coder-30b
+    display_name: Qwen3 Coder 30B A3B
+    tier: text-with-tts
+    backend: llama.cpp
+    model_path: ~/Models/storage/gguf/Qwen3-Coder-30B-A3B-Instruct-Q4_K_M.gguf
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      17.3GB. MoE coder. Text-only. Edge TTS + playlist fallback.
+
+  - id: qwen35-27b-claude
+    display_name: Qwen3.5 27B Claude-Opus Distilled
+    tier: text-with-tts
+    backend: llama.cpp
+    model_path: ~/Models/storage/gguf/Qwen3.5-27B-Claude-Distilled/Qwen3.5-27B-Claude-4.6-Opus-Reasoning-Distilled.Q4_K_M.gguf
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      15.4GB. Claude-Opus-4.6 reasoning distilled. The most 'warm'
+      text-only model in the catalog — fits Nous Girl's persona well.
+
+  - id: qwen35-27b-sushi
+    display_name: Qwen3.5 27B Sushi Coder RL
+    tier: text-with-tts
+    backend: llama.cpp
+    model_path: ~/Models/storage/gguf/Qwen3.5-27b-Sushi-Coder-RL-GGUF/qwen35-codeforces-27b-rl-step25-Q4_K_M.gguf
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      15.4GB. RL-tuned coder. Codeforces-trained. Best for execution-style chats.
+
+  - id: qwen35-35b-a3b
+    display_name: Qwen3.5 35B A3B
+    tier: text-with-tts
+    backend: llama.cpp
+    model_path: ~/Models/storage/gguf/Qwen3.5-35B-A3B-GGUF/Qwen3.5-35B-A3B-UD-Q4_K_XL.gguf
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      18.3GB Qwen3.5 35B MoE. Strong general-purpose. Text-only fallback.
+
+  # === FUTURE / PENDING ===
+  - id: omni-step
+    display_name: OmniStep (placeholder for flagship)
+    tier: multimodal-native
+    backend: llama.cpp
+    model_path: null
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: model
+      edge_voice: en-US-AvaNeural
+    music:
+      source: model
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, voice, music, vision, tools]
+    notes: |
+      Placeholder for the flagship ~32A8B MoE. Will be multimodal native:
+      text + voice + music + vision, all from one model.
+      Awaiting Stage 4 (YaRN 256K) and Stage 5 (plugin wiring) of the
+      OmniSenter pipeline before this entry is final.
