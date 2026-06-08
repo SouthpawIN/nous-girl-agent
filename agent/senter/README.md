@@ -9,7 +9,7 @@ projects, then returns a prioritized "what should I focus on?" list.
 This profile is a custom Hermes profile. Install:
 
 ```bash
-# From the nous-girl-agent repo root
+# From the nous-assistant-agent repo root
 hermes profile create senter --template agent/senter-profile.yaml
 hermes run --profile senter
 ```
@@ -52,12 +52,12 @@ each tagged with one of: `[execute]`, `[escalate]`, `[defer]`, `[archive]`.
 
 ## Why this profile
 
-The Nous Girl agent is *curation* — it surfaces ideas. Senter is
+The Omni VA is *curation* — it surfaces ideas. Senter is
 *prioritization* — it tells you what to do. Together with Hermes
 main (execution), that's the three-tier agent system:
 
 ```
-Nous Girl agent (curation)  →  Senter (prioritization)  →  Hermes main (execution)
+Omni VA (curation)  →  Senter (prioritization)  →  Hermes main (execution)
             ↑                                                            ↓
             └────────── writes notes to wiki ──────────────────────────┘
 ```
@@ -69,6 +69,6 @@ Nous Girl agent (curation)  →  Senter (prioritization)  →  Hermes main (exec
 
 ## See also
 
-- `agent/profile-template.yaml` — the curator profile (Nous Girl agent)
+- `agent/profile-template.yaml` — the curator profile (Omni VA)
 - `wiki-handoff/wiki_handoff.py` — the shared handoff library
-- `agent/prompts/nous-girl-curator.md` — the curator persona
+- `agent/prompts/nous-assistant-curator.md` — the curator persona

@@ -1,5 +1,5 @@
 #!/bin/bash
-# run-radio.sh — start the Evolutionary Radio plugin (sibling process to the pet)
+# run-radio.sh — start the Evolutionary Radio plugin (sibling process to the VA)
 #
 # Usage:
 #   ./scripts/run-radio.sh start --vibe "chill lofi beats for coding"

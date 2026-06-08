@@ -1,10 +1,10 @@
 #!/bin/bash
-# install.sh — One-shot setup for the Nous Girl agent + pet + radio
+# install.sh — One-shot setup for the Omni VA + VA + radio
 #
 # Usage:
 #   ./scripts/install.sh                    # full install
 #   ./scripts/install.sh --no-radio         # skip the radio plugin
-#   ./scripts/install.sh --no-pet           # skip the pet (just the agent + radio)
+#   ./scripts/install.sh --no-va           # skip the VA (just the agent + radio)
 
 set -e
 
@@ -15,15 +15,15 @@ RADIO_DIR="$REPO_ROOT/plugins/evolution-radio/upstream"
 NOTES_DIR="${HOME}/wiki/pet-curated"
 
 SKIP_RADIO=false
-SKIP_PET=false
+SKIP_VA=false
 for arg in "$@"; do
     case $arg in
         --no-radio) SKIP_RADIO=true ;;
-        --no-pet)   SKIP_PET=true ;;
+        --no-va)   SKIP_VA=true ;;
     esac
 done
 
-echo "🎀 Nous Girl agent — install"
+echo "🎀 Omni VA — install"
 echo "============================"
 echo ""
 
@@ -45,8 +45,8 @@ fi
 echo "  ✅ python3, uv, mpv, git all present"
 echo ""
 
-# 2. vtuber-core deps (the pet)
-if [ "$SKIP_PET" = false ]; then
+# 2. vtuber-core deps (the VA)
+if [ "$SKIP_VA" = false ]; then
     echo "📦 Installing vtuber-core deps (uv sync)..."
     cd "$VTUBER_DIR"
     if [ ! -d ".venv" ]; then
@@ -121,8 +121,8 @@ echo ""
 echo "Next steps:"
 echo "  1. Edit $REPO_ROOT/models/curated.yaml — pick which models to enable"
 echo "  2. Edit $VTUBER_DIR/conf.yaml — point at a model from the catalog"
-echo "  3. (Optional) Customize $REPO_ROOT/pet/sprites/nous-girl/"
-echo "  4. Start the pet:    $REPO_ROOT/scripts/run-pet.sh"
+echo "  3. (Optional) Customize $REPO_ROOT/VA/sprites/nous-assistant/"
+echo "  4. Start the VA:    $REPO_ROOT/scripts/run-VA.sh"
 echo "  5. Start the radio:  $REPO_ROOT/scripts/run-radio.sh start"
 echo "  6. Start the agent:  $REPO_ROOT/scripts/run-agent.sh"
 echo ""

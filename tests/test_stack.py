@@ -1,5 +1,5 @@
 """
-test_stack.py — End-to-end smoke test for the Nous Girl agent stack.
+test_stack.py — End-to-end smoke test for the Omni VA stack.
 
 This is NOT a unit test. It exercises the whole stack as a system:
   - Catalog loads and validates
@@ -26,12 +26,12 @@ _REPO_ROOT = _HERE.parent
 
 
 class StackSmokeTest(unittest.TestCase):
-    """End-to-end smoke test for the full Nous Girl agent stack."""
+    """End-to-end smoke test for the full Omni VA stack."""
 
     # ----- Repo structure -----
 
     def test_repo_root_has_key_directories(self):
-        for d in ["vtuber-core", "agent", "pet", "models", "plugins", "wiki-handoff", "scripts", "tests", "docs"]:
+        for d in ["vtuber-core", "agent", "assistant", "models", "plugins", "wiki-handoff", "scripts", "tests", "docs"]:
             self.assertTrue((_REPO_ROOT / d).is_dir(), f"missing dir: {d}/")
 
     def test_ag_is_a_real_file(self):
@@ -94,17 +94,17 @@ class StackSmokeTest(unittest.TestCase):
 
     # ----- Eikon sprite -----
 
-    def test_nous_girl_eikon_base_png_exists(self):
+    def test_omni_va_eikon_base_png_exists(self):
         """The default eikon has a base.png."""
-        base = _REPO_ROOT / "pet" / "sprites" / "nous-girl" / "base.png"
-        self.assertTrue(base.is_file(), "pet/sprites/nous-girl/base.png missing")
+        base = _REPO_ROOT / "assistant" / "sprites" / "omni-va" / "base.png"
+        self.assertTrue(base.is_file(), "assistant/sprites/omni-va/base.png missing")
         # Should be a reasonable size (>1KB, <5MB)
         size = base.stat().st_size
         self.assertGreater(size, 1000, f"base.png too small: {size}b (corrupted?)")
         self.assertLess(size, 5_000_000, f"base.png too large: {size}b")
 
-    def test_nous_girl_eikon_manifest_exists(self):
-        manifest = _REPO_ROOT / "pet" / "sprites" / "nous-girl" / "manifest.json"
+    def test_omni_va_eikon_manifest_exists(self):
+        manifest = _REPO_ROOT / "assistant" / "sprites" / "omni-va" / "manifest.json"
         self.assertTrue(manifest.is_file(), "manifest.json missing")
         import json
         with open(manifest) as f:
@@ -113,27 +113,27 @@ class StackSmokeTest(unittest.TestCase):
 
     def test_vtuber_core_avatar_exists(self):
         """The avatar that Open-LLM-VTuber serves is in place."""
-        avatar = _REPO_ROOT / "vtuber-core" / "avatars" / "nous-girl.png"
-        self.assertTrue(avatar.is_file(), "vtuber-core/avatars/nous-girl.png missing")
+        avatar = _REPO_ROOT / "vtuber-core" / "avatars" / "omni-va.png"
+        self.assertTrue(avatar.is_file(), "vtuber-core/avatars/omni-va.png missing")
 
     # ----- Character config -----
 
-    def test_nous_girl_character_config_exists(self):
-        char = _REPO_ROOT / "vtuber-core" / "characters" / "nous-girl.yaml"
-        self.assertTrue(char.is_file(), "characters/nous-girl.yaml missing")
+    def test_omni_va_character_config_exists(self):
+        char = _REPO_ROOT / "vtuber-core" / "characters" / "omni-va.yaml"
+        self.assertTrue(char.is_file(), "characters/omni-va.yaml missing")
         import yaml
         with open(char) as f:
             data = yaml.safe_load(f)
         self.assertIn("character_config", data, "missing character_config key")
         cfg = data["character_config"]
-        self.assertEqual(cfg.get("conf_name"), "nous-girl")
+        self.assertEqual(cfg.get("conf_name"), "omni-va")
         self.assertIn("persona_prompt", cfg)
         self.assertIn("TOWARDS SELF-IMPROVEMENT", cfg["persona_prompt"])
 
-    def test_nous_girl_conf_template_exists(self):
+    def test_omni_va_conf_template_exists(self):
         """The drop-in conf.yaml template with OmniStep + OmniSenter wiring."""
-        conf = _REPO_ROOT / "vtuber-core" / "conf.nous-girl.yaml"
-        self.assertTrue(conf.is_file(), "conf.nous-girl.yaml missing")
+        conf = _REPO_ROOT / "vtuber-core" / "conf.omni-va.yaml"
+        self.assertTrue(conf.is_file(), "conf.omni-va.yaml missing")
         # Should reference both OmniStep and OmniSenter
         with open(conf) as f:
             content = f.read()
@@ -142,20 +142,20 @@ class StackSmokeTest(unittest.TestCase):
         self.assertIn("llama_cpp_omnistep", content)
         self.assertIn("llama_cpp_omnisenter", content)
 
-    def test_pet_menu_exists(self):
-        menu = _REPO_ROOT / "pet" / "menus" / "nous-girl.yaml"
-        self.assertTrue(menu.is_file(), "pet/menus/nous-girl.yaml missing")
+    def test_assistant_menu_exists(self):
+        menu = _REPO_ROOT / "assistant" / "menus" / "omni-va.yaml"
+        self.assertTrue(menu.is_file(), "assistant/menus/omni-va.yaml missing")
         import yaml
         with open(menu) as f:
             data = yaml.safe_load(f)
-        self.assertEqual(data["name"], "nous-girl")
+        self.assertEqual(data["name"], "omni-va")
         self.assertIsInstance(data["menus"], list)
         self.assertGreater(len(data["menus"]), 0)
 
     # ----- Agent profiles -----
 
     def test_curator_profile_template(self):
-        """The Nous Girl curator profile template."""
+        """The Omni VA curator profile template."""
         prof = _REPO_ROOT / "agent" / "profile-template.yaml"
         self.assertTrue(prof.is_file(), "agent/profile-template.yaml missing")
         import yaml
@@ -193,7 +193,7 @@ class StackSmokeTest(unittest.TestCase):
 
     def test_curator_prompts_exist(self):
         """The three agent persona prompts."""
-        for prompt in ["nous-girl-curator.md", "radio-curator.md", "senter-triage.md"]:
+        for prompt in ["omni-va-curator.md", "radio-curator.md", "senter-triage.md"]:
             p = _REPO_ROOT / "agent" / "prompts" / prompt
             self.assertTrue(p.is_file(), f"agent/prompts/{prompt} missing")
             with open(p) as f:
@@ -286,7 +286,7 @@ class StackSmokeTest(unittest.TestCase):
     # ----- Launchers -----
 
     def test_launchers_exist_and_executable(self):
-        for s in ["install.sh", "dev.sh", "run-pet.sh", "run-radio.sh", "run-agent.sh"]:
+        for s in ["install.sh", "dev.sh", "run-assistant.sh", "run-radio.sh", "run-agent.sh"]:
             p = _REPO_ROOT / "scripts" / s
             self.assertTrue(p.is_file(), f"scripts/{s} missing")
             # Should be executable

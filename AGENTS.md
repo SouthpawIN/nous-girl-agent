@@ -1,23 +1,23 @@
 # AGENTS.md — guidance for AI agents working in this repo
 
 This file tells AI agents (Claude Code, OpenCode, Codex, future-me) how
-to behave when working in the Nous Girl agent repo.
+to behave when working in the Omni VA repo.
 
 ## Project overview
 
-A curated local-model desktop pet + the OmniStep Evolution Radio plugin.
+A curated local-model desktop VA + the OmniStep Evolution Radio plugin.
 Two-tier agent architecture:
-- Tier 1: Pet (Nous Girl curator, headless) — limited toolset, notes/curates
-- Tier 2: Hermes main agent — full toolset, executes on the pet's notes
+- Tier 1: VA (Omni VA curator, headless) — limited toolset, notes/curates
+- Tier 2: Hermes main agent — full toolset, executes on the VA's notes
 
-The pet runs a local model from `models/curated.yaml` (hand-curated by mu)
+The VA runs a local model from `models/curated.yaml` (hand-curated by mu)
 and serves it via the forked Open-LLM-VTuber in `vtuber-core/`. The
 evolutionary-radio plugin lives in `plugins/evolution-radio/`.
 
 ## Repo map
 
 ```
-nous-girl-agent/
+nous-assistant-agent/
 ├── README.md                # project overview
 ├── ARCHITECTURE.md          # deep architecture
 ├── INSTALL.md               # install + run
@@ -26,12 +26,12 @@ nous-girl-agent/
 ├── agent/                   # Hermes profile templates + agent prompts
 │   ├── profile-template.yaml
 │   └── prompts/
-│       ├── nous-girl-curator.md  # the curator persona
+│       ├── nous-assistant-curator.md  # the curator persona
 │       ├── radio-curator.md      # headless ambient curator
 │       └── senter-triage.md      # on-demand triage
-├── pet/                     # pet-specific config (sprites, menus, launcher)
-│   ├── sprites/nous-girl/   # eikon assets (vendored from herm-tui)
-│   └── menus/nous-girl.yaml # right-click menu definitions
+├── VA/                     # VA-specific config (sprites, menus, launcher)
+│   ├── sprites/nous-assistant/   # eikon assets (vendored from herm-tui)
+│   └── menus/nous-assistant.yaml # right-click menu definitions
 ├── models/                  # curated model catalog
 │   ├── curated.yaml         # active entries (hand-picked)
 │   └── suggested.yaml       # candidates
@@ -56,8 +56,8 @@ nous-girl-agent/
    by mu. Add candidates to `suggested.yaml` and let mu promote.
 4. **Do not touch the user's `~/wiki/pet-curated/`** without explicit
    permission — only write files there via the `wiki_handoff` API.
-5. **Do not run the pet or radio daemon during active training.** The
-   Stage 1 SFT is currently running on GPU 0+1. The pet + radio consume
+5. **Do not run the VA or radio daemon during active training.** The
+   Stage 1 SFT is currently running on GPU 0+1. The VA + radio consume
    GPU. Always check `nvidia-smi` before starting a server.
 
 ## What you SHOULD do
@@ -71,14 +71,14 @@ nous-girl-agent/
 
 ## Architectural rules
 
-- **One-way wiki handoff.** Pet writes to `~/wiki/pet-curated/`, Hermes
-  main reads. Pet cannot trigger Hermes. User stays in control.
+- **One-way wiki handoff.** VA writes to `~/wiki/pet-curated/`, Hermes
+  main reads. VA cannot trigger Hermes. User stays in control.
 - **No code execution in the curator profile.** Curator is bounded to
   web + file (notes dir only) + skills. Use escalations for everything else.
 - **Multimodal default falls back gracefully.** OmniStep / Qwen-Omni =
   full multimodal. Text-only LLMs fall back to Edge TTS + playlist.
 - **Eikon is a visual layer, not a model.** The model is the brain. Swap
-  models in the catalog → pet's whole personality swaps.
+  models in the catalog → VA's whole personality swaps.
 
 ## Tooling preferences
 

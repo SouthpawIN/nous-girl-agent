@@ -1,11 +1,11 @@
 #!/bin/bash
-# run-agent.sh — start the Nous Girl curator agent (headless Hermes profile)
+# run-agent.sh — start the Omni VA curator agent (headless Hermes profile)
 #
 # Usage:
 #   ./scripts/run-agent.sh
 #   ./scripts/run-agent.sh --once     # run curation once and exit
 #
-# This is the headless curator that runs alongside the pet.
+# This is the headless curator that runs alongside the VA.
 # Toolset: web search, web fetch, file write (notes only), social media.
 # Writes to ~/wiki/pet-curated/ for Hermes main to consume.
 
@@ -23,7 +23,7 @@ if ! hermes profile list 2>/dev/null | grep -q "evolutionary-radio"; then
     hermes profile create evolutionary-radio --template "$REPO_ROOT/agent/profile-template.yaml"
 fi
 
-echo "🎀 Starting Nous Girl curator agent..."
+echo "🎀 Starting Omni VA curator agent..."
 echo "   Notes will be written to: $NOTES_DIR"
 echo ""
 

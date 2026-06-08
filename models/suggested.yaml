@@ -12,7 +12,7 @@ suggestions:
     api_base: null
     api_key_env: null
     default: true
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: model
       edge_voice: en-US-JennyNeural
@@ -35,7 +35,7 @@ suggestions:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: model
       edge_voice: en-US-JennyNeural
@@ -44,7 +44,7 @@ suggestions:
       playlist: plugins/evolution-radio/playlists/default.json
     capabilities: [text, voice, music, tools]
     notes: |
-      Flagship ~32A8B MoE. Will be the pet's "premium" default once Stage 4 (YaRN 256K) is done.
+      Flagship ~32A8B MoE. Will be the VA's "premium" default once Stage 4 (YaRN 256K) is done.
     status: pending
 
   - id: darwin-28b
@@ -55,7 +55,7 @@ suggestions:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-JennyNeural
@@ -76,7 +76,7 @@ suggestions:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-JennyNeural
@@ -97,7 +97,7 @@ suggestions:
     api_base: https://api.nous.research/v1
     api_key_env: NOUS_API_KEY
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-JennyNeural
@@ -118,7 +118,7 @@ suggestions:
     api_base: https://api.nous.research/v1
     api_key_env: NOUS_API_KEY
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-JennyNeural
@@ -127,5 +127,5 @@ suggestions:
       playlist: plugins/evolution-radio/playlists/default.json
     capabilities: [text, tools]
     notes: |
-      Hand-picked auxiliary model. Use as escalation target for the pet.
+      Hand-picked auxiliary model. Use as escalation target for the VA.
     status: pending

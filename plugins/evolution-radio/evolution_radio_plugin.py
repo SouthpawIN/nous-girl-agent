@@ -45,7 +45,7 @@ def manifest() -> dict[str, Any]:
         "version": PLUGIN_VERSION,
         "description": "Perpetual radio with self-evolving playlists. Curates user taste, trains LoRAs, runs Ohm chain.",
         "author": "SouthpawIN",
-        "repo": "https://github.com/SouthpawIN/nous-girl-agent",
+        "repo": "https://github.com/SouthpawIN/nous-assistant-agent",
         "upstream": "https://github.com/SouthpawIN/evolutionary-radio",
         "commands": [
             {"name": "radio:start", "description": "Start the radio daemon", "args": [{"name": "vibe", "type": "string", "default": "chill lofi beats for coding"}]},

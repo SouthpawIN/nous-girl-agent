@@ -2,15 +2,15 @@
 
 ## The big idea
 
-A **curated multimodal desktop pet** is the entry point to a three-tier agent system. The pet is intentionally limited — it's a *taste curator*, not a code executor. Notes the pet curates become the input corpus for Senter (prioritization), then Hermes main (execution).
+A **curated multimodal desktop assistant** is the entry point to a three-tier agent system. The VA is intentionally limited — it's a *taste curator*, not a code executor. Notes the VA curates become the input corpus for Senter (prioritization), then Hermes main (execution).
 
-The pet runs a local model server (llama.cpp / ollama / any OpenAI-compatible backend) and *is* the way you experience that model. With OmniStep as default, the model is multimodal native — text, voice, and music all come from the same forward pass. With a text-only model, the pet falls back to Edge TTS for voice and a curated playlist for music. The fallback is invisible to the user — the pet still *feels* alive.
+The VA runs a local model server (llama.cpp / ollama / any OpenAI-compatible backend) and *is* the way you experience that model. With OmniStep as default, the model is multimodal native — text, voice, and music all come from the same forward pass. With a text-only model, the VA falls back to Edge TTS for voice and a curated playlist for music. The fallback is invisible to the user — the VA still *feels* alive.
 
 ## Three-tier agent system
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│ Tier 1 — Nous Girl agent (curation)                              │
+│ Tier 1 — Omni VA (curation)                              │
 │  • Always-on, low-stakes, ambient                                │
 │  • Tools: web search, fetch, file (notes), social                │
 │  • Asks questions, curates, runs the radio                       │
@@ -38,7 +38,7 @@ The pet runs a local model server (llama.cpp / ollama / any OpenAI-compatible ba
 └──────────────────────────────────────────────────────────────────┘
 ```
 
-The pet is the *taste curator*. Senter is the *prioritizer*. Hermes is the *executor*. The wiki is the *handoff layer*. Music is the visible proof the curation loop is healthy.
+The VA is the *taste curator*. Senter is the *prioritizer*. Hermes is the *executor*. The wiki is the *handoff layer*. Music is the visible proof the curation loop is healthy.
 
 ## Component diagram
 
@@ -47,7 +47,7 @@ The pet is the *taste curator*. Senter is the *prioritizer*. Hermes is the *exec
 │ USER DESKTOP                                                     │
 │                                                                  │
 │  ┌────────────────┐         ┌──────────────────────┐             │
-│  │  Live2D Pet    │◄────────┤  Open-LLM-VTuber     │             │
+│  │  Live2D VA    │◄────────┤  Open-LLM-VTuber     │             │
 │  │  (transparent, │  WS     │  Server (FastAPI)    │             │
 │  │   draggable)   │         │  - ASR (Whisper)     │             │
 │  └────────────────┘         │  - TTS (Edge/Model)  │             │
@@ -103,17 +103,17 @@ The pet is the *taste curator*. Senter is the *prioritizer*. Hermes is the *exec
 
 ## Why this shape
 
-- **Pet is constrained on purpose.** A small toolset means it can't accidentally do something dangerous or expensive. It can *think* and *note*, but not *act*. Senter decides what matters; Hermes acts.
-- **Multimodal-native default.** OmniStep being text+voice+music in one model means the pet's "personality" is actually the model's behavior, not a stitched-together illusion. When you swap models, the pet's whole vibe changes — voice, music taste, conversational style. Eikon is the visual layer, model is the behavioral layer.
-- **Evolutionary-radio as plug-in, not feature.** It's a sibling process the pet orchestrates. Decoupled from chat model. The radio can run ambient (pre-gen playlist) when GPU is busy (e.g. training) or live-generative when idle.
+- **VA is constrained on purpose.** A small toolset means it can't accidentally do something dangerous or expensive. It can *think* and *note*, but not *act*. Senter decides what matters; Hermes acts.
+- **Multimodal-native default.** OmniStep being text+voice+music in one model means the VA's "personality" is actually the model's behavior, not a stitched-together illusion. When you swap models, the VA's whole vibe changes — voice, music taste, conversational style. Eikon is the visual layer, model is the behavioral layer.
+- **Evolutionary-radio as plug-in, not feature.** It's a sibling process the VA orchestrates. Decoupled from chat model. The radio can run ambient (pre-gen playlist) when GPU is busy (e.g. training) or live-generative when idle.
 - **Curated catalog.** This isn't a "model browser." The catalog is a small, deliberate set of models you've hand-picked. Each entry is a recommendation, not an option. The user picks from your curation, not from "every model on HF."
 
 ## Eikon as identity
 
-Each model in the catalog has an `eikon` field. The eikon is a Live2D sprite + a persona prompt + a voice. When you swap models, the pet's whole identity swaps. This is the "vibe conductor" pattern from the existing Nous Girl agent work — the model is the brain, the eikon is the face, together they are the pet.
+Each model in the catalog has an `eikon` field. The eikon is a Live2D sprite + a persona prompt + a voice. When you swap models, the VA's whole identity swaps. This is the "vibe conductor" pattern from the existing Omni VA work — the model is the brain, the eikon is the face, together they are the VA.
 
-Default eikon: Nous Girl (vendored from herm-tui's eikon package).
-Other eikons: can be added to `pet/sprites/` and registered in the catalog.
+Default eikon: Omni VA (vendored from herm-tui's eikon package).
+Other eikons: can be added to `VA/sprites/` and registered in the catalog.
 
 ## Evolutionary-radio coupling
 
@@ -142,19 +142,19 @@ Candidates live in `models/suggested.yaml`. When you vet one, you move it to `mo
 
 ## Auxiliary model slot
 
-The pet's main chat is OmniStep. The **auxiliary** model slot is for specialized tasks:
+The VA's main chat is OmniStep. The **auxiliary** model slot is for specialized tasks:
 - Notebook curation (writing summaries to the wiki)
-- Escalation target (when the pet needs to call out for help)
+- Escalation target (when the VA needs to call out for help)
 - Vision (if the main model is text-only)
 - Music generation (if the main model is text-only)
 
-Currently the auxiliary slot is for OmniSenter (the Qwen3-8B + Stage 1 SFT LoRA). Once Stage 4 (YaRN 256K) is done, OmniSenter becomes the pet's premium default and a new auxiliary replaces it.
+Currently the auxiliary slot is for OmniSenter (the Qwen3-8B + Stage 1 SFT LoRA). Once Stage 4 (YaRN 256K) is done, OmniSenter becomes the VA's premium default and a new auxiliary replaces it.
 
 ## Radio ↔ wiki loop (the curation cycle)
 
 ```
-1. User chats with pet
-2. Pet's curator agent reads chat, asks follow-up, takes notes
+1. User chats with VA
+2. VA's curator agent reads chat, asks follow-up, takes notes
 3. Notes go to ~/wiki/pet-curated/*.md
 4. Radio bridge (radio_bridge.py sync) reads notes every 10 min
 5. Bridge extracts music-relevant signals (vibes, moods)

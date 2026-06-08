@@ -11,6 +11,6 @@ distribution_owned:
   - README.md
 
 notes: |
-  Install: `hermes profile install github.com/SouthpawIN/nous-girl-agent/agent/senter --name senter`
+  Install: `hermes profile install github.com/SouthpawIN/nous-assistant-agent/agent/senter --name senter`
   Run:     `hermes run --profile senter`
   Wiki:    https://southpawin.github.io/

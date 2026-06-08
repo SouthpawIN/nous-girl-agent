@@ -1,6 +1,6 @@
 # Model Format
 
-The pet's `models/curated.yaml` references GGUF files for local models.
+The VA's `models/curated.yaml` references GGUF files for local models.
 Here's what you need to know.
 
 ## Supported backends
@@ -15,7 +15,7 @@ Here's what you need to know.
 ## GGUF (local, llama.cpp)
 
 Most local models in the catalog are GGUF quantizations. Place the
-`.gguf` file at the path in `model_path` and the pet will spawn a
+`.gguf` file at the path in `model_path` and the VA will spawn a
 `llama-server` instance pointing at it.
 
 Recommended layout:
@@ -47,7 +47,7 @@ in the catalog entry points to it.
 - **Q8_0:** near-original quality, ~8 bits per weight. For small models.
 - **Q2_K:** tiny, but quality loss. Only for testing.
 
-For the pet (interactive use), **Q4_K_M** is the sweet spot.
+For the VA (interactive use), **Q4_K_M** is the sweet spot.
 
 ## Context size
 
@@ -60,7 +60,7 @@ most common.
 
 ## Memory budget
 
-The pet runs the model on GPU. Memory needed per model:
+The VA runs the model on GPU. Memory needed per model:
 
 | model                | GGUF size | VRAM needed (Q4_K_M) |
 |----------------------|-----------|----------------------|

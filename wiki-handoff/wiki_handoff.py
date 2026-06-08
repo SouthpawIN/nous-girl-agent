@@ -1,8 +1,8 @@
 """
-wiki_handoff.py — Pet → Hermes main handoff module
+wiki_handoff.py — VA → Hermes main handoff module
 ====================================================
 
-The Nous Girl agent (pet's curator) writes to ~/wiki/pet-curated/.
+The Omni VA (VA's curator) writes to ~/wiki/pet-curated/.
 This module is the shared contract: both sides use these helpers
 to read/write structured notes that the other side can consume.
 

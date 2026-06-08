@@ -1,13 +1,13 @@
 # Wiki Handoff
 
-This directory contains the contract between the pet's curator agent
-(Nous Girl agent, headless) and Hermes main agent (full toolset).
+This directory contains the contract between the VA's curator agent
+(Omni VA, headless) and Hermes main agent (full toolset).
 
 ## Direction
 
-**One-way: pet → Hermes main.**
+**One-way: VA → Hermes main.**
 
-The pet writes to `~/wiki/pet-curated/` (configured in `agent/profile-template.yaml`).
+The VA writes to `~/wiki/pet-curated/` (configured in `agent/profile-template.yaml`).
 Hermes main agent reads from there on user request.
 
 ## Files
@@ -17,7 +17,7 @@ Hermes main agent reads from there on user request.
 
 ## Quick start
 
-### From the pet (Nous Girl curator agent)
+### From the VA (Omni VA curator agent)
 
 ```python
 from wiki_handoff import curate_chat, write_escalation, update_taste_profile
@@ -105,5 +105,5 @@ updated on every curation run.
   simplest possible interface. No RPC, no service discovery, no auth.
 - **YAML frontmatter is greppable.** Hermes main can quickly filter by
   `trigger`, `vibe`, `projects_touched`, etc. without parsing the body.
-- **One-way means no loops.** Pet can't trigger Hermes. User stays in control.
+- **One-way means no loops.** VA can't trigger Hermes. User stays in control.
 - **No new schema = no migration hell.** It's just markdown + YAML.

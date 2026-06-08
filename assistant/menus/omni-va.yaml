@@ -1,8 +1,8 @@
-# Right-click context menus for the pet.
-# Each eikon can define its own menu. The default Nous Girl menu is here.
+# Right-click context menus for the VA.
+# Each eikon can define its own menu. The default Omni VA menu is here.
 
-name: nous-girl
-display_name: "Nous Girl"
+name: omni-va
+display_name: "Omni VA"
 description: "Default eikon menu. Voice interaction, model switcher, radio controls."
 
 menus:
@@ -62,9 +62,9 @@ menus:
   - label: "Eikon..."
     icon: "🎨"
     submenu:
-      # Populated from pet/sprites/ at runtime
+      # Populated from assistant/sprites/ at runtime
       source: filesystem
-      dir: pet/sprites/
+      dir: assistant/sprites/
       action_on_select: swap_eikon
 
   - label: "Notes"
@@ -87,8 +87,8 @@ menus:
     submenu:
       - label: "Reload catalog"
         action: reload_catalog
-      - label: "Restart pet"
-        action: restart_pet
+      - label: "Restart VA"
+        action: restart_va
         confirm: true
       - label: "Quit"
         action: quit

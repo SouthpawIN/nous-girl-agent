@@ -37,7 +37,7 @@ class OmniClient:
         temperature: float = 0.7,
         max_tokens: int = 200,
     ) -> str:
-        """Send a chat completion request. Returns the assistant's text."""
+        """Send a chat completion request. Returns the VA's text."""
         url = f"{self.base_url}/v1/chat/completions"
         payload = {
             "model": self.model,

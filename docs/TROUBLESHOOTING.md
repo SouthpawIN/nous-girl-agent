@@ -2,14 +2,14 @@
 
 ## Common issues
 
-### Pet won't start: "conf.yaml not found"
+### VA won't start: "conf.yaml not found"
 
 ```
 cp vtuber-core/config_templates/conf.default.yaml vtuber-core/conf.yaml
 $EDITOR vtuber-core/conf.yaml
 ```
 
-### Pet won't start: "module 'open_llm_vtuber' not found"
+### VA won't start: "module 'open_llm_vtuber' not found"
 
 The vtuber-core deps aren't installed. Run:
 
@@ -17,7 +17,7 @@ The vtuber-core deps aren't installed. Run:
 cd vtuber-core && uv sync
 ```
 
-### Pet can't reach the model
+### VA can't reach the model
 
 Check that a model is actually running:
 
@@ -61,21 +61,21 @@ mkdir -p ~/wiki/pet-curated/escalations
 ls -la ~/wiki/pet-curated/
 ```
 
-### GPU contention between training and the pet
+### GPU contention between training and the VA
 
-The pet is GPU-light (it serves as the LLM client; the actual inference
+The VA is GPU-light (it serves as the LLM client; the actual inference
 happens in the local model server). The model server itself uses VRAM.
 
 If you have active training running on both GPUs:
 
 1. Stop training first, OR
-2. Run the pet against a small model (qwen-omni-3b at 1.96GB), OR
+2. Run the VA against a small model (qwen-omni-3b at 1.96GB), OR
 3. Use an API model (set `api_key_env: NOUS_API_KEY` in the catalog)
 
-### The pet's eikon doesn't appear / is invisible
+### The VA's eikon doesn't appear / is invisible
 
-Check that the Live2D model path in `characters/nous-girl.yaml` is valid.
-For v1 (static PNG), the `avatar_path: avatars/nous-girl.png` should be
+Check that the Live2D model path in `characters/nous-assistant.yaml` is valid.
+For v1 (static PNG), the `avatar_path: avatars/nous-assistant.png` should be
 present — verify with `ls vtuber-core/avatars/`.
 
 ### The radio won't autostart tracks
@@ -102,6 +102,6 @@ auto-play on mobile due to platform restrictions.
 
 ## Getting more help
 
-- Open an issue: https://github.com/SouthpawIN/nous-girl-agent/issues
+- Open an issue: https://github.com/SouthpawIN/nous-assistant-agent/issues
 - Check the upstream Open-LLM-VTuber docs: vtuber-core/doc/
 - Read the radio upstream: https://github.com/SouthpawIN/evolutionary-radio

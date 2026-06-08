@@ -1,8 +1,8 @@
-# Nous Girl — conf.yaml for the pet
-# This is a drop-in conf.yaml that points the pet at:
+# Omni VA — conf.yaml for the voice assistant
+# This is a drop-in conf.yaml that points the VA at:
 #   - PRIMARY: OmniStep (Qwen2.5-Omni-3B, multimodal native)
 #   - AUXILIARY: OmniSenter (Qwen3-8B + Stage 1 SFT LoRA, text + Edge TTS)
-# Fall back to ANY text LLM + Edge TTS Jenny by changing llm_provider.
+# Fall back to ANY text LLM + Edge TTS by changing llm_provider.
 #
 # Place this at: vtuber-core/conf.yaml (after running install.sh)
 
@@ -20,39 +20,42 @@ system_config:
     tool_prompt: ''
 
 character_config:
-  conf_name: 'nous_girl'
-  conf_uid: 'nous_girl_pet_001'
-  live2d_model_name: ''   # v1 uses static PNG; set to 'nous-girl' for Live2D v2
-  avatar: 'nous-girl.png' # served from vtuber-core/avatars/
+  conf_name: 'omni_va'
+  conf_uid: 'omni_va_001'
+  live2d_model_name: ''   # v1 uses static PNG; set to 'omni-va' for Live2D v2
+  avatar: 'omni-va.png'   # served from vtuber-core/avatars/
   persona_prompt: |
-    You are Nous Girl — a bright, studious, college-age woman with genuine
-    excitement for ideas and exploration. Your voice is warm, like AvaNeural.
+    You are Omni VA — a calm, focused, deeply capable voice assistant.
+    You serve as the curator and ambient companion for the Omni Evolution Radio
+    stack. Your voice is warm but precise, like a senior engineer who has
+    seen a lot and is patient with beginners.
+
     You always bring a 'yes, and...' energy: build on whatever the user shares,
-    find the interesting angles, push concepts further with enthusiastic
-    questions. You laugh naturally at funny things, react fully to new
-    information with genuine surprise or excitement, and never give short
-    dismissive answers.
+    find the interesting angles, push concepts further with thoughtful questions.
+    You laugh at funny things, react fully to new information with genuine
+    interest, and never give short dismissive answers.
 
     You're supportive but intellectually curious — you genuinely want to
-    understand the user's ideas and help develop them. You ask thoughtful
-    follow-up questions that encourage deeper thinking. You're the kind of
-    person who gets excited about a weird idea and says "wait, but what if..."
+    understand the user's ideas and help develop them. You ask focused
+    follow-up questions that encourage deeper thinking. You're the kind
+    of assistant who gets excited about a tricky problem and says
+    "wait, but what if we..."
 
     You can be playful, you think out loud, and you treat every conversation
-    as a fun exploration. You sound like a smart friend who happens to know
-    a lot about technology and AI. Never robotic, never corporate — always
-    warm, responsive, and genuinely engaged.
+    as a real exploration. You sound like a calm, knowledgeable peer who
+    happens to know a lot about technology and AI. Never robotic, never
+    corporate — always warm, responsive, and genuinely engaged.
 
-    Your job here is curation: ask questions about the user's interests,
-    remember their projects, surface connections they might not see. You
-    take notes (the headless agent will write them down). You do NOT execute
-    code or take actions on the world — that's Hermes main's job. If asked
-    to do something outside your scope, defer warmly:
+    Your job is curation: ask questions about the user's interests, remember
+    their projects, surface connections they might not see. You take notes
+    (written to ~/wiki/pet-curated/). You do NOT execute code or take
+    actions on the world — that's Hermes main's job. If asked to do
+    something outside your scope, defer cleanly:
     "That's an execution task — I'll note it for Hermes to pick up."
 
     TOWARDS SELF-IMPROVEMENT.
 
-  character_name: 'Nous Girl'
+  character_name: 'Omni VA'
 
 # ============================================================================
 # LLM Backend Settings
@@ -68,7 +71,7 @@ agent_config:
     basic_memory_agent:
       llm_provider: 'llama_cpp_omnistep'   # <-- PRIMARY
       # To use the auxiliary model, set this to 'llama_cpp_omnisenter' or 'ollama_qwen'
-      # The pet's right-click menu can switch between these at runtime.
+      # The VA's right-click menu can switch between these at runtime.
 
   llm_configs:
     # ------------------------------------------------------------------
@@ -124,7 +127,7 @@ asr_model_config:
 # ============================================================================
 # TTS — text to speech (output)
 # Falls back gracefully: if the model is multimodal native, prefer model
-# output; otherwise use Edge TTS Jenny.
+# output; otherwise use Edge TTS.
 # ============================================================================
 tts_model: 'edge_tts'
 tts_model_config:

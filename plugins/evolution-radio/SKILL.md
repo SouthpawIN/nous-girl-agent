@@ -20,7 +20,7 @@ The OmniStep Evolution Radio is a perpetual playlist loop that:
 - Trains LoRAs on what you like
 - Feeds the **Ohm** evolutionary chain for self-improvement
 
-It's a sibling process to the pet — decoupled from the chat model. The
+It's a sibling process to the VA — decoupled from the chat model. The
 radio runs ambient (pre-generated playlist) when GPU is busy (e.g.,
 training), and switches to live-gen when idle.
 
@@ -47,7 +47,7 @@ training), and switches to live-gen when idle.
 
 ## Voice
 
-The radio doesn't have its own voice — it's ambient. The pet's
+The radio doesn't have its own voice — it's ambient. The VA's
 voice (Jenny/Ava via Edge TTS, or model-native if OmniStep) is what
 the user hears when they talk to the agent. The radio is what they
 hear in the background.

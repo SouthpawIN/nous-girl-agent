@@ -1,9 +1,9 @@
 #!/bin/bash
-# dev.sh — Run everything: pet + radio + agent, with logs tailing
+# dev.sh — Run everything: VA + radio + agent, with logs tailing
 #
 # Usage:
-#   ./scripts/dev.sh               # all three, logs to /tmp/nous-girl-*.log
-#   ./scripts/dev.sh --no-agent    # pet + radio only
+#   ./scripts/dev.sh               # all three, logs to /tmp/nous-assistant-*.log
+#   ./scripts/dev.sh --no-agent    # VA + radio only
 #   ./scripts/dev.sh --kill        # kill any running instances
 
 set -e
@@ -12,7 +12,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(dirname "$SCRIPT_DIR")"
 
 if [ "$1" = "--kill" ]; then
-    echo "🛑 Killing any running Nous Girl processes..."
+    echo "🛑 Killing any running Omni VA processes..."
     pkill -f "uv run run_server.py" 2>/dev/null || true
     pkill -f "evolutionary-radio" 2>/dev/null || true
     pkill -f "radio_bridge" 2>/dev/null || true
@@ -28,19 +28,19 @@ for arg in "$@"; do
     esac
 done
 
-LOG_DIR="/tmp/nous-girl-logs"
+LOG_DIR="/tmp/nous-assistant-logs"
 mkdir -p "$LOG_DIR"
 
-echo "🎀 Nous Girl dev environment"
+echo "🎀 Omni VA dev environment"
 echo "============================"
 echo "  Logs: $LOG_DIR"
 echo ""
 
-# 1. Pet
-echo "🚀 Starting pet..."
-nohup "$REPO_ROOT/scripts/run-pet.sh" > "$LOG_DIR/pet.log" 2>&1 &
+# 1. VA
+echo "🚀 Starting VA..."
+nohup "$REPO_ROOT/scripts/run-VA.sh" > "$LOG_DIR/VA.log" 2>&1 &
 PET_PID=$!
-echo "  pet: PID $PET_PID, log: $LOG_DIR/pet.log"
+echo "  VA: PID $PET_PID, log: $LOG_DIR/VA.log"
 sleep 3
 
 # 2. Radio
@@ -67,7 +67,7 @@ fi
 
 echo ""
 echo "✅ All services started. PIDs:"
-echo "  pet:    $PET_PID"
+echo "  VA:    $PET_PID"
 echo "  radio:  $RADIO_PID"
 echo "  bridge: $BRIDGE_PID"
 [ "$SKIP_AGENT" = false ] && echo "  agent:  $AGENT_PID"

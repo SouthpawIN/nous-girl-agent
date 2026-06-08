@@ -1,13 +1,13 @@
 # Eikon Format
 
-The pet supports two eikon formats:
+The VA supports two eikon formats:
 
 ## v1 — Static PNG (current)
 
-The simplest format. A single PNG, displayed as the pet's avatar.
+The simplest format. A single PNG, displayed as the VA's avatar.
 
 ```
-pet/sprites/<eikon-name>/
+VA/sprites/<eikon-name>/
 ├── README.md           (optional)
 ├── base.png            (default avatar)
 ├── manifest.json       (eikon metadata, optional)
@@ -38,21 +38,21 @@ To upgrade a v1 eikon to Live2D:
 1. Source a Live2D model in Cubism 4 format (`.moc3` + textures)
 2. Drop the files into `vtuber-core/live2d-models/<eikon-name>/`:
    ```
-   vtuber-core/live2d-models/nous-girl/
-   ├── nous-girl.moc3
-   ├── nous-girl.model3.json
+   vtuber-core/live2d-models/nous-assistant/
+   ├── nous-assistant.moc3
+   ├── nous-assistant.model3.json
    ├── textures/
    │   └── *.png
    └── expressions/
        └── *.exp3.json
    ```
-3. Update `vtuber-core/characters/nous-girl.yaml`:
+3. Update `vtuber-core/characters/nous-assistant.yaml`:
    ```yaml
    character_config:
-     live2d_model_name: "nous-girl"   # was: ""
-     avatar_path: ""                   # was: "avatars/nous-girl.png"
+     live2d_model_name: "nous-assistant"   # was: ""
+     avatar_path: ""                   # was: "avatars/nous-assistant.png"
    ```
-4. Re-test the pet
+4. Re-test the VA
 
 ## Brand constraints (Nous style)
 
@@ -66,6 +66,6 @@ brand guide:
 - **Mood:** Bright, studious, warm, curious. College-age energy.
 - **Tagline:** "TOWARDS SELF-IMPROVEMENT" (optional, in the about menu).
 
-The Nous Girl eikon shipped here was sourced from the eikon package
+The Omni VA eikon shipped here was sourced from the eikon package
 in herm-tui — a 48×24 braille-style rendering. It works for v1 but
-should be upgraded to a proper Live2D for the v2 pet.
+should be upgraded to a proper Live2D for the v2 VA.

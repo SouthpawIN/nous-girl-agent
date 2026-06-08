@@ -11,14 +11,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Initial repo skeleton with vendored Open-LLM-VTuber (vtuber-core/)
 - Curated model catalog (models/curated.yaml) with 7 real model entries
 - Suggested model candidates (models/suggested.yaml) for promotion
-- Nous Girl eikon sprite (pet/sprites/nous-girl/) with 6 state variants
-- Nous Girl character config (vtuber-core/characters/nous-girl.yaml)
-- Right-click context menu (pet/menus/nous-girl.yaml)
-- Three agent prompts: nous-girl-curator, radio-curator, senter-triage
-- Wiki handoff library (wiki-handoff/wiki_handoff.py) for pet <-> Hermes
+- Omni VA eikon sprite (VA/sprites/nous-assistant/) with 6 state variants
+- Omni VA character config (vtuber-core/characters/nous-assistant.yaml)
+- Right-click context menu (VA/menus/nous-assistant.yaml)
+- Three agent prompts: nous-assistant-curator, radio-curator, senter-triage
+- Wiki handoff library (wiki-handoff/wiki_handoff.py) for VA <-> Hermes
 - Radio bridge (plugins/evolution-radio/radio_bridge.py) closing the curation loop
 - Vendored evolutionary-radio upstream (plugins/evolution-radio/upstream/)
-- Launchers: install.sh, dev.sh, run-pet.sh, run-radio.sh, run-agent.sh
+- Launchers: install.sh, dev.sh, run-VA.sh, run-radio.sh, run-agent.sh
 - Tests: tests/test_wiki_handoff.py (unittest, zero deps)
 - CI: .github/workflows/ci.yml (lint + test + yaml validation)
 - Docs: ARCHITECTURE.md, INSTALL.md, TROUBLESHOOTING.md, EIKON_FORMAT.md, MODEL_FORMAT.md
@@ -29,6 +29,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.1.0] - 2026-06-08
 
-Initial public release. Repo at https://github.com/SouthpawIN/nous-girl-agent.
+Initial public release. Repo at https://github.com/SouthpawIN/nous-assistant-agent.
 
-[Unreleased]: https://github.com/SouthpawIN/nous-girl-agent/compare/main...HEAD
+[Unreleased]: https://github.com/SouthpawIN/nous-assistant-agent/compare/main...HEAD

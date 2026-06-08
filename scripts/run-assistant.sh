@@ -1,10 +1,10 @@
 #!/bin/bash
-# run-pet.sh — start the Nous Girl pet (Open-LLM-VTuber desktop client)
+# run-VA.sh — start the Omni VA (Open-LLM-VTuber desktop client)
 #
 # Usage:
-#   ./scripts/run-pet.sh                # uses curated.yaml default model
-#   ./scripts/run-pet.sh --character nous-girl
-#   ./scripts/run-pet.sh --model-id qwen-omni-3b
+#   ./scripts/run-VA.sh                # uses curated.yaml default model
+#   ./scripts/run-VA.sh --character nous-assistant
+#   ./scripts/run-VA.sh --model-id qwen-omni-3b
 
 set -e
 
@@ -31,5 +31,5 @@ if [ ! -f "conf.yaml" ]; then
 fi
 
 # Launch
-echo "🎀 Starting Nous Girl pet..."
+echo "🎀 Starting Omni VA..."
 exec uv run run_server.py "$@"

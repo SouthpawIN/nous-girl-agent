@@ -1,5 +1,5 @@
 # Curated Model Catalog
-# Hand-picked by mu. This is the source of truth for what models the Nous Girl agent can serve.
+# Hand-picked by mu. This is the source of truth for what models the Omni VA can serve.
 # Suggestions for new entries go in suggested.yaml — you promote from there to here.
 
 # Catalog schema:
@@ -11,7 +11,7 @@
 # - api_base:             API endpoint (for openai-compat / nous-portal), null otherwise
 # - api_key_env:          env var holding the API key, null for local
 # - default:              true if this is the launch default
-# - eikon:                eikon sprite/persona name (must exist in pet/sprites/)
+# - eikon:                eikon sprite/persona name (must exist in VA/sprites/)
 # - voice:
 #     source:             model | edge-tts | melotts | cosyvoice | bark
 #     edge_voice:         fallback Edge TTS voice (e.g. en-US-AvaNeural)
@@ -34,7 +34,7 @@ models:
     api_base: null
     api_key_env: null
     default: true
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: model
       edge_voice: en-US-AvaNeural
@@ -43,7 +43,7 @@ models:
       playlist: plugins/evolution-radio/playlists/default.json
     capabilities: [text, voice, vision, tools]
     notes: |
-      Default pet model. Multimodal native — text + voice + vision inputs,
+      Default VA model. Multimodal native — text + voice + vision inputs,
       text + voice outputs. 1.96GB GGUF + 1.43GB mmproj. Fits 24GB GPU easily.
       Music still falls back to playlist (no native music output).
 
@@ -56,7 +56,7 @@ models:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-AvaNeural
@@ -76,7 +76,7 @@ models:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-AvaNeural
@@ -96,7 +96,7 @@ models:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-AvaNeural
@@ -115,7 +115,7 @@ models:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-AvaNeural
@@ -125,7 +125,7 @@ models:
     capabilities: [text, tools]
     notes: |
       15.4GB. Claude-Opus-4.6 reasoning distilled. The most 'warm'
-      text-only model in the catalog — fits Nous Girl's persona well.
+      text-only model in the catalog — fits Omni VA's persona well.
 
   - id: qwen35-27b-sushi
     display_name: Qwen3.5 27B Sushi Coder RL
@@ -135,7 +135,7 @@ models:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-AvaNeural
@@ -154,7 +154,7 @@ models:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: edge-tts
       edge_voice: en-US-AvaNeural
@@ -174,7 +174,7 @@ models:
     api_base: null
     api_key_env: null
     default: false
-    eikon: nous-girl
+    eikon: nous-assistant
     voice:
       source: model
       edge_voice: en-US-AvaNeural
@@ -211,8 +211,8 @@ auxiliaries:
     capabilities: [text, tools]
     notes: |
       The trained Qwen3-8B with Stage 1 SFT LoRA applied. Used as an
-      auxiliary model — not the chat default. The pet's main chat is
+      auxiliary model — not the chat default. The VA's main chat is
       OmniStep (Qwen2.5-Omni-3B); OmniSenter is the notebook-curation
       and escalation target. Once Stage 4 (YaRN 256K) is done, this
-      becomes the pet's premium default.
+      becomes the VA's premium default.
     status: pending
