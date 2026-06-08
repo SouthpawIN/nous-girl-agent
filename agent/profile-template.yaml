@@ -52,5 +52,5 @@ escalation:
 # Skills
 skills:
   - notes          # structured note-taking
-  - herm-tui-radio # music curation (read-only from this profile)
+  - evolution-radio # music curation (read-only from this profile)
   # NO evolutionary-training, NO mlops, NO software-development

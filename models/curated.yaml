@@ -187,3 +187,32 @@ models:
       text + voice + music + vision, all from one model.
       Awaiting Stage 4 (YaRN 256K) and Stage 5 (plugin wiring) of the
       OmniSenter pipeline before this entry is final.
+
+
+# Auxiliary models (not the chat model — escalation, vision, music, etc.)
+# These are loaded alongside the main model for specialized tasks.
+auxiliaries:
+  - id: omnisenter-auxiliary
+    display_name: OmniSenter (auxiliary, post-Stage-1)
+    tier: text-with-tts
+    backend: llama.cpp
+    model_path: ~/Models/storage/gguf/omnisenter/omnisenter-stage1-Q4_K_M.gguf
+    adapter_path: ~/projects/evolutionary-training/training-output/omnisenter-sft-20260606_213858/checkpoint-1000/
+    api_base: null
+    api_key_env: null
+    role: auxiliary
+    purpose: notebook-curation, escalation-target
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      The trained Qwen3-8B with Stage 1 SFT LoRA applied. Used as an
+      auxiliary model — not the chat default. The pet's main chat is
+      OmniStep (Qwen2.5-Omni-3B); OmniSenter is the notebook-curation
+      and escalation target. Once Stage 4 (YaRN 256K) is done, this
+      becomes the pet's premium default.
+    status: pending

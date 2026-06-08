@@ -1,23 +1,50 @@
-# Nous Girl Agent & OmniStep Evolution Radio Plugin
+# Nous Girl Agent
 
-> **TOWARDS SELF-IMPROVEMENT** — *curated by mu*
+**The desktop pet, the local model server, the OmniStep Evolution Radio, the curator agent, the Senter triage profile — all in one stack.**
+
+> TOWARDS SELF-IMPROVEMENT · curated by mu
 
 A standalone, voice-interactive, ever-evolving desktop pet that serves as a **curated local-model server manager**. The pet is the face of the model — voice and music come *from the model itself*, with a graceful fallback to Edge TTS and curated playlists when you swap to a text-only LLM.
 
-The **OmniStep Evolution Radio** lives as a plugin inside the agent. It's a perpetual radio that watches what you engage with, builds playlists reflecting your taste, trains LoRAs on what you like, and feeds the **Ohm** evolutionary chain for self-improvement. Notes the agent curates are handoff-ready to **Hermes Agent** for execution.
+The **OmniStep Evolution Radio** lives as a plugin inside the agent. It's a perpetual radio that watches what you engage with, builds playlists reflecting your taste, trains LoRAs on what you like, and feeds the Ohm evolutionary chain for self-improvement. Notes the agent curates are handoff-ready to **Hermes Agent** for execution.
+
+**This is the front door for the personal site:** https://southpawin.github.io/
 
 ---
 
 ## What's in the box
 
-| Component | What it does |
-|---|---|
-| **Pet** (forked from Open-LLM-VTuber) | Live2D desktop companion, draggable, always-on-top, click-through mode. Voice in/out, screen vision, chat log persistence. |
-| **Nous Girl Agent** | Minimal-toolset Hermes profile: web search, web fetch, file write (notes), social media. Asks questions, takes notes, curates your taste. |
-| **OmniStep Evolution Radio** | Perpetual playlist loop. Listens to what you skip/like, generates new music (HeartMuLa / ACE-Step), trains LoRAs, evolves via Ohm. |
-| **Model Catalog** | Hand-curated YAML of local models, API combos, and auxiliary combos. Each entry pairs an eikon, a voice, and capability flags. |
-| **Wiki Handoff** | The pet writes notes to a structured wiki. Hermes main agent reads them as input for execution. |
-| **Eikons** | Live2D sprite library. Nous Girl is default. Swap eikon → swap pet character + voice + personality. |
+| Component | What it does | Install |
+|---|---|---|
+| **Pet** (forked from Open-LLM-VTuber) | Live2D desktop companion, voice in/out, chat log persistence | `./scripts/install.sh && ./scripts/run-pet.sh` |
+| **Nous Girl curator** | Headless Hermes profile: web, fetch, notes, social. Writes to `~/wiki/pet-curated/`. | `hermes profile install github.com/SouthpawIN/nous-girl-agent/agent --name evolutionary-radio` |
+| **Senter triage** | On-demand prioritization tier. Reads wiki, returns ranked list. | `hermes profile install github.com/SouthpawIN/nous-girl-agent/agent/senter --name senter` |
+| **OmniStep Evolution Radio** | Perpetual radio plugin. Self-evolving playlists. LoRAs. Ohm chain. | `./scripts/run-radio.sh start` |
+| **Model catalog** | Hand-curated YAML of local + API + auxiliary models. | Edit `models/curated.yaml` |
+| **Wiki handoff** | Shared library for pet ↔ Hermes main. | `wiki-handoff/wiki_handoff.py` |
+| **Eikons** | Live2D sprite library. Nous Girl is default. | `pet/sprites/` |
+| **Launchers** | `install.sh`, `dev.sh`, `run-pet.sh`, `run-radio.sh`, `run-agent.sh` | `scripts/` |
+
+---
+
+## Quick start
+
+```bash
+# 1. Clone
+git clone https://github.com/SouthpawIN/nous-girl-agent
+cd nous-girl-agent
+
+# 2. Install
+./scripts/install.sh
+
+# 3. Run everything (pet + radio + agent + bridge, with logs)
+./scripts/dev.sh
+
+# Or run individually:
+./scripts/run-pet.sh     # the Live2D pet
+./scripts/run-radio.sh start  # the radio plugin
+./scripts/run-agent.sh   # the curator agent
+```
 
 ---
 
@@ -29,7 +56,7 @@ The **OmniStep Evolution Radio** lives as a plugin inside the agent. It's a perp
 │  • Always-on, low-stakes, ambient                            │
 │  • Tools: web search, web fetch, notes, social media         │
 │  • Asks questions, curates, runs the radio                   │
-│  • Multimodal by default (Omni-Step = text+voice+music)      │
+│  • Multimodal by default (OmniStep = text+voice+music)      │
 │  • Falls back to Edge TTS/Jenny + playlist for text models   │
 └─────────────────────────────────────────────────────────────┘
                               │  wiki handoff
@@ -42,20 +69,23 @@ The **OmniStep Evolution Radio** lives as a plugin inside the agent. It's a perp
 └─────────────────────────────────────────────────────────────┘
 ```
 
-The pet is the **taste curator**. Hermes is the **action executor**. The wiki is the **handoff layer**. Music is the visible proof the curation loop is healthy.
+Three tiers, actually: **Nous Girl (curation) → Senter (prioritization) → Hermes main (execution)**. Senter sits between curation and execution as an on-demand triage step.
 
 ---
 
 ## Default model: OmniStep
 
-**OmniStep is multimodal native.** Text in, text+voice+music out. One model. The pet doesn't *call* Omni-Step — the pet *is* your way of experiencing Omni-Step's full capability.
+**OmniStep (Qwen2.5-Omni-3B)** is multimodal native — text + voice + vision in, text + voice out. One model. Falls back to Edge TTS Jenny for voice and the curated playlist for music when you swap in a text-only LLM.
 
-**Fallback ladder** (when user picks a different model):
-1. **Multimodal native** (OmniStep, OmniSenter) → text + voice + music from model
-2. **Text LLM + Edge TTS** (any GGUF / OpenAI-compat) → text + voice (Jenny/JennyNeural) + pre-curated playlist
-3. **API combo via Nous Portal** → text from API + voice from Edge TTS + playlist
+The catalog (`models/curated.yaml`) has 8 entries:
 
-The model catalog flags which tier each model falls into.
+| Tier | Models |
+|---|---|
+| **multimodal-native** | Qwen2.5-Omni-3B (default), OmniStep (pending flagship) |
+| **text-with-tts** | Darwin-28B, APEX-MTP, Qwen3-Coder-30B-A3B, Qwen3.5-27B-Claude, Qwen3.5-27B-Sushi, Qwen3.5-35B-A3B |
+| **auxiliary** | OmniSenter (pending Stage 1) |
+
+Each entry pairs a model with an eikon, a voice, and capability flags.
 
 ---
 
@@ -66,58 +96,34 @@ nous-girl-agent/
 ├── README.md                  ← you are here
 ├── ARCHITECTURE.md            ← deep architecture doc
 ├── INSTALL.md                 ← install + run
-├── vtuber-core/               ← forked Open-LLM-VTuber (pet UI, Live2D, ASR, TTS)
-├── agent/                     ← Nous Girl agent (Hermes profile, prompts, voice)
-├── pet/                       ← pet-specific config (sprites, menus, launcher)
-├── models/                    ← curated model catalog (YAML)
-│   ├── local/                 ← hand-picked local GGUF models
-│   ├── api/                   ← API combos via Nous Portal
-│   └── auxiliary/             ← auxiliary combos (e.g. pet = local, escalation = API)
+├── CHANGELOG.md               ← version history
+├── AGENTS.md                  ← rules for future AI agents
+├── .github/workflows/ci.yml   ← CI: lint + tests + yaml validation
+├── vtuber-core/               ← vendored Open-LLM-VTuber (pet UI, Live2D, ASR, TTS)
+├── agent/                     ← Nous Girl curator + Senter triage profiles
+│   ├── distribution.yaml      ← installable as 'evolutionary-radio' profile
+│   ├── profile-template.yaml
+│   ├── prompts/               ← personas
+│   ├── senter/                ← Senter profile
+│   └── voice/                 ← TTS configs
+├── pet/                       ← pet-specific config
+│   ├── sprites/nous-girl/     ← eikon assets
+│   └── menus/nous-girl.yaml   ← right-click menu
+├── models/                    ← curated model catalog
+│   ├── curated.yaml           ← hand-picked entries
+│   └── suggested.yaml         ← candidates
 ├── plugins/
-│   └── evolution-radio/       ← the radio plugin (perpetual loop, LoRAs, Ohm)
-├── wiki-handoff/              ← pet → Hermes main wiki handoff layer
-├── docs/                      ← additional documentation
-└── scripts/                   ← install, run, dev scripts
-```
-
----
-
-## Quick start (placeholder — full INSTALL.md coming)
-
-```bash
-# 1. Clone
-git clone https://github.com/SouthpawIN/nous-girl-agent
-cd nous-girl-agent
-
-# 2. Install vtuber-core
-cd vtuber-core && uv sync && cd ..
-
-# 3. Pick a model from models/curated.yaml
-# 4. Run
-cd vtuber-core && uv run run_server.py
-```
-
----
-
-## Model catalog philosophy
-
-The catalog is **hand-curated, not auto-scraped**. Each entry is a deliberate choice — a model you trust, paired with an eikon you vibe with, with a voice that fits. Add entries to `models/curated.yaml`. Suggestions live in `models/suggested.yaml` for you to pick from.
-
-```yaml
-- id: omni-step
-  display_name: OmniStep
-  tier: multimodal-native           # multimodal-native | text-with-tts | api-combo
-  backend: llama.cpp                 # llama.cpp | ollama | openai-compat | nous-portal
-  model_path: ~/models/omni-step.gguf
-  default: true
-  eikon: nous-girl
-  voice:
-    source: model                    # model | edge-tts | melotts | cosyvoice
-    edge_voice: en-US-JennyNeural    # fallback
-  music:
-    source: model                    # model | heartmula | playlist | none
-    playlist: plugins/evolution-radio/playlists/default.json
-  capabilities: [text, voice, music]
+│   └── evolution-radio/       ← the radio plugin (real Hermes plug-in)
+│       ├── upstream/          ← vendored radio.py + code/
+│       ├── radio_bridge.py    ← wiki <-> radio bridge
+│       ├── evolution_radio_plugin.py  ← Hermes plug-in entry
+│       └── SKILL.md           ← evolution-radio skill
+├── wiki-handoff/
+│   ├── wiki_handoff.py        ← shared handoff library
+│   └── README.md
+├── docs/                      ← TROUBLESHOOTING, EIKON_FORMAT, MODEL_FORMAT
+├── scripts/                   ← install.sh, dev.sh, run-*.sh
+└── tests/                     ← pytest-style tests
 ```
 
 ---
@@ -126,17 +132,14 @@ The catalog is **hand-curated, not auto-scraped**. Each entry is a deliberate ch
 
 - `vtuber-core/`: MIT (inherited from Open-LLM-VTuber)
 - Live2D assets: see `vtuber-core/LICENSE-Live2D.md`
-- Everything else in this repo: MIT
+- Everything else: MIT
 
 ---
 
-## Status
+## See also
 
-- ✅ Broken `file://` links across 9 repos — fixed
-- ✅ Repo skeleton created
-- ✅ Open-LLM-VTuber vendored into `vtuber-core/`
-- 🔄 Curated model catalog — scaffolding only, awaiting your entries
-- 🔄 Evolutionary-radio plugin — architecture documented, implementation pending
-- 🔄 Nous Girl eikon — sprite swap pending
-
-The full Stage 1 SFT training is running uninterrupted on GPU 0+1.
+- **Personal site:** https://southpawin.github.io/
+- **Blog:** https://southpawin.github.io/blog/
+- **OmniSenter pipeline:** https://github.com/SouthpawIN/evolutionary-training
+- **Evolutionary Radio (upstream):** https://github.com/SouthpawIN/evolutionary-radio
+- **Hermes Agent:** https://github.com/SouthpawIN/hermes-agent

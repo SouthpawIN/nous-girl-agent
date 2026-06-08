@@ -1,0 +1,15 @@
+name: evolutionary-radio
+version: 0.1.0
+description: "Nous Girl curator — headless Hermes profile for the pet. Bounded toolset: web, notes, social. Writes to ~/wiki/pet-curated/ for Hermes main to consume."
+author: SouthpawIN
+license: MIT
+hermes_requires: '>=0.12.0'
+env_requires: []
+distribution_owned:
+  - profile-template.yaml
+  - prompts/
+
+notes: |
+  Install: `hermes profile install github.com/SouthpawIN/nous-girl-agent/agent --name evolutionary-radio`
+  Run:     `hermes run --profile evolutionary-radio`
+  Wiki:    https://southpawin.github.io/
