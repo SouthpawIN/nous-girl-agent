@@ -1,0 +1,102 @@
+# Right-click context menus for the pet.
+# Each eikon can define its own menu. The default Nous Girl menu is here.
+
+name: nous-girl
+display_name: "Nous Girl"
+description: "Default eikon menu. Voice interaction, model switcher, radio controls."
+
+menus:
+  - label: "Chat"
+    icon: "💬"
+    shortcut: "double-click"
+    action: open_chat
+
+  - label: "Switch model..."
+    icon: "🔀"
+    submenu:
+      # Populated from models/curated.yaml at runtime
+      # Each entry: {label, model_id, action: start_model}
+      source: catalog
+      catalog_path: models/curated.yaml
+      action_on_select: stop_current_and_start
+
+  - label: "Voice"
+    icon: "🎤"
+    submenu:
+      - label: "Mute"
+        action: toggle_mute
+        shortcut: "Ctrl+M"
+      - label: "Voice: Edge TTS (Jenny)"
+        action: set_tts
+        params: {provider: edge-tts, voice: en-US-JennyNeural}
+      - label: "Voice: Edge TTS (Ava)"
+        action: set_tts
+        params: {provider: edge-tts, voice: en-US-AvaNeural}
+      - label: "Voice: Model-native"
+        action: set_tts
+        params: {provider: model}
+        note: "Only if the loaded model supports native TTS"
+
+  - label: "Radio"
+    icon: "📻"
+    submenu:
+      - label: "Start radio"
+        action: start_radio
+      - label: "Stop radio"
+        action: stop_radio
+      - label: "Skip track"
+        action: radio_skip
+        shortcut: "Ctrl+Right"
+      - label: "Like current track"
+        action: radio_like
+        shortcut: "Ctrl+L"
+      - label: "Dislike current track"
+        action: radio_dislike
+        shortcut: "Ctrl+D"
+      - label: "Show queue"
+        action: radio_queue
+      - label: "Evolve (force Ohm run)"
+        action: radio_evolve
+        note: "Triggers an immediate evolutionary step"
+
+  - label: "Eikon..."
+    icon: "🎨"
+    submenu:
+      # Populated from pet/sprites/ at runtime
+      source: filesystem
+      dir: pet/sprites/
+      action_on_select: swap_eikon
+
+  - label: "Notes"
+    icon: "📝"
+    submenu:
+      - label: "Open notes directory"
+        action: open_path
+        params: {path: ~/wiki/pet-curated/}
+      - label: "Open taste profile"
+        action: open_path
+        params: {path: ~/wiki/pet-curated/taste.yaml}
+      - label: "Show recent curations"
+        action: show_recent
+        params: {limit: 10}
+      - label: "Show pending escalations"
+        action: show_pending
+
+  - label: "Settings"
+    icon: "⚙️"
+    submenu:
+      - label: "Reload catalog"
+        action: reload_catalog
+      - label: "Restart pet"
+        action: restart_pet
+        confirm: true
+      - label: "Quit"
+        action: quit
+        shortcut: "Ctrl+Q"
+
+  - label: "About"
+    icon: "ℹ️"
+    action: show_about
+    params:
+      repo: https://github.com/SouthpawIN/nous-girl-agent
+      tagline: "TOWARDS SELF-IMPROVEMENT"
