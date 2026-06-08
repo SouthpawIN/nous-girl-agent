@@ -16,7 +16,6 @@ if [ "$1" = "--kill" ]; then
     pkill -f "uv run run_server.py" 2>/dev/null || true
     pkill -f "evolutionary-radio" 2>/dev/null || true
     pkill -f "radio_bridge" 2>/dev/null || true
-    pkill -f "evolutionary-radio" 2>/dev/null || true
     sleep 1
     echo "  ✅ Done"
     exit 0
