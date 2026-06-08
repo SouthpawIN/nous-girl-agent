@@ -1,0 +1,66 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Lint + Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Lint wiki-handoff
+        run: |
+          python3 -c "import ast; ast.parse(open('wiki-handoff/wiki_handoff.py').read())"
+          python3 -c "import ast; ast.parse(open('plugins/evolution-radio/radio_bridge.py').read())"
+        shell: bash
+
+      - name: Run tests
+        run: |
+          python3 -m unittest discover -s tests -v
+
+      - name: Validate curated.yaml
+        run: |
+          python3 -c "
+          import yaml
+          with open('models/curated.yaml') as f:
+              data = yaml.safe_load(f)
+          assert 'models' in data, 'missing models key'
+          for m in data['models']:
+              assert 'id' in m, f'missing id in {m}'
+              assert 'tier' in m, f'missing tier in {m[\"id\"]}'
+              assert m['tier'] in ['multimodal-native', 'text-with-tts', 'api-combo'], f'bad tier in {m[\"id\"]}'
+          print(f'Validated {len(data[\"models\"])} model entries')
+          "
+
+      - name: Validate suggested.yaml
+        run: |
+          python3 -c "
+          import yaml
+          with open('models/suggested.yaml') as f:
+              data = yaml.safe_load(f)
+          assert 'suggestions' in data, 'missing suggestions key'
+          print(f'Validated {len(data[\"suggestions\"])} suggestions')
+          "
+
+      - name: Validate profile-template.yaml
+        run: |
+          python3 -c "
+          import yaml
+          with open('agent/profile-template.yaml') as f:
+              data = yaml.safe_load(f)
+          assert 'name' in data, 'missing name'
+          assert 'toolsets' in data, 'missing toolsets'
+          print(f'Validated profile: {data[\"name\"]} with {len(data[\"toolsets\"])} toolsets')
+          "
