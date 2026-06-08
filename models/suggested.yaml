@@ -1,0 +1,131 @@
+# Suggested Model Entries
+# These are candidates. Promote an entry to models/curated.yaml once you've vetted it.
+
+# Entry format — same as curated.yaml. Copy one in, fill in, test, then move to curated.
+
+suggestions:
+  - id: omni-step
+    display_name: OmniStep
+    tier: multimodal-native
+    backend: llama.cpp
+    model_path: ~/models/omni-step/omni-step-Q4_K_M.gguf
+    api_base: null
+    api_key_env: null
+    default: true
+    eikon: nous-girl
+    voice:
+      source: model
+      edge_voice: en-US-JennyNeural
+      model_voice_config: {}
+    music:
+      source: model
+      playlist: plugins/evolution-radio/playlists/default.json
+      generation_config: {}
+    capabilities: [text, voice, music]
+    notes: |
+      Default model. Multimodal native — text + voice + music from one forward pass.
+      Wait for it to land on HF or use a local build.
+    status: pending
+
+  - id: omnisenter
+    display_name: OmniSenter (flagship)
+    tier: multimodal-native
+    backend: llama.cpp
+    model_path: ~/models/omnisenter/omnisenter-Q4_K_M.gguf
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: model
+      edge_voice: en-US-JennyNeural
+    music:
+      source: model
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, voice, music, tools]
+    notes: |
+      Flagship ~32A8B MoE. Will be the pet's "premium" default once Stage 4 (YaRN 256K) is done.
+    status: pending
+
+  - id: darwin-28b
+    display_name: Darwin 28B
+    tier: text-with-tts
+    backend: llama.cpp
+    model_path: ~/models/darwin/Darwin-28B-Q4_K_M.gguf
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-JennyNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      Currently loaded on GPU0. Text-only. Voice falls back to Edge TTS Jenny.
+      Music falls back to curated playlist.
+    status: ready
+
+  - id: apex-mtp
+    display_name: APEX-MTP
+    tier: text-with-tts
+    backend: llama.cpp
+    model_path: ~/models/apex/APEX-MTP-I-Compact-Q4_K_M.gguf
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-JennyNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      Currently loaded on GPU1. Text-only. Same fallback path as Darwin.
+    status: ready
+
+  # API combos (Nous Portal — hand-picked)
+  - id: nous-portal-flagship
+    display_name: Nous Portal — Flagship
+    tier: api-combo
+    backend: nous-portal
+    model_path: null
+    api_base: https://api.nous.research/v1
+    api_key_env: NOUS_API_KEY
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-JennyNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, vision, tools]
+    notes: |
+      Hand-picked Nous Portal flagship. API-only, no local model.
+      Voice + music fall back as usual.
+    status: pending
+
+  - id: nous-portal-auxiliary
+    display_name: Nous Portal — Auxiliary
+    tier: api-combo
+    backend: nous-portal
+    model_path: null
+    api_base: https://api.nous.research/v1
+    api_key_env: NOUS_API_KEY
+    default: false
+    eikon: nous-girl
+    voice:
+      source: edge-tts
+      edge_voice: en-US-JennyNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      Hand-picked auxiliary model. Use as escalation target for the pet.
+    status: pending

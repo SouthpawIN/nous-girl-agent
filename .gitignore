@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+*.so
+
+# uv
+.venv/
+.python-version
+
+# Config with secrets
+conf.yaml
+conf.local.yaml
+*.local
+
+# Runtime data
+chat_history/
+cache/
+logs/
+*.log
+
+# Models (large files)
+models/*.gguf
+models/**/*.gguf
+models/*.safetensors
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,10 @@
+{
+  "name": "default",
+  "description": "Default ambient playlist. Lo-fi, generative, low-tempo. Plays when no model-native music is available.",
+  "tracks": [],
+  "generation_policy": {
+    "min_tracks": 8,
+    "max_age_hours": 168,
+    "regenerate_on_empty": true
+  }
+}

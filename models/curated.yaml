@@ -1,0 +1,26 @@
+# Curated Model Catalog
+# Hand-picked by mu. This is the source of truth for what models the Nous Girl agent can serve.
+# Suggestions for new entries go in suggested.yaml — you promote from there to here.
+
+# Catalog schema:
+# - id:                   unique slug
+# - display_name:         human-readable name
+# - tier:                 multimodal-native | text-with-tts | api-combo
+# - backend:              llama.cpp | ollama | openai-compat | nous-portal
+# - model_path:           path to GGUF, or null for API models
+# - api_base:             API endpoint (for openai-compat / nous-portal), null otherwise
+# - api_key_env:          env var holding the API key, null for local
+# - default:              true if this is the launch default
+# - eikon:                eikon sprite/persona name (must exist in pet/sprites/)
+# - voice:
+#     source:             model | edge-tts | melotts | cosyvoice | bark
+#     edge_voice:         fallback Edge TTS voice (e.g. en-US-JennyNeural)
+#     model_voice_config: optional config for model-native voice output
+# - music:
+#     source:             model | heartmula | ace-step | playlist | none
+#     playlist:           path to playlist JSON, if source=playlist
+#     generation_config:  optional config for model-native music output
+# - capabilities:         subset of [text, voice, music, vision, tools]
+# - notes:                free-form notes from mu
+
+models: []
