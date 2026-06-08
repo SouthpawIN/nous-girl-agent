@@ -1,10 +1,41 @@
 {
   "name": "default",
-  "description": "Default ambient playlist. Lo-fi, generative, low-tempo. Plays when no model-native music is available.",
+  "description": "Default ambient playlist. Populated by the radio daemon. Empty by default; the radio fills it from the curated catalog and ACE-Step generation.",
   "tracks": [],
+  "fallback_tracks": [
+    {
+      "id": "ambient-default-001",
+      "title": "Lo-fi for Coding",
+      "duration_seconds": 0,
+      "vibe": "ambient coding",
+      "source": "playlist-fallback",
+      "generated": false,
+      "note": "Real audio file required. See INSTALL.md for adding curated tracks."
+    },
+    {
+      "id": "ambient-default-002",
+      "title": "Generative Ambient",
+      "duration_seconds": 0,
+      "vibe": "ambient generative",
+      "source": "playlist-fallback",
+      "generated": false,
+      "note": "Real audio file required. See INSTALL.md for adding curated tracks."
+    },
+    {
+      "id": "ambient-default-003",
+      "title": "Cosmic Drift",
+      "duration_seconds": 0,
+      "vibe": "ambient cosmic",
+      "source": "playlist-fallback",
+      "generated": false,
+      "note": "Real audio file required. See INSTALL.md for adding curated tracks."
+    }
+  ],
   "generation_policy": {
-    "min_tracks": 8,
+    "min_tracks": 5,
     "max_age_hours": 168,
-    "regenerate_on_empty": true
+    "regenerate_on_empty": true,
+    "use_ace_step": true,
+    "ace_step_endpoint": "http://localhost:8101"
   }
 }
