@@ -17,6 +17,19 @@ toolsets:
   - skills       # notes, lyricify, herm-tui-radio
   # No terminal. No code. No delegation. No computer_use.
 
+# === MULTIMODAL EXTENSIONS (2026-06-08) ===
+# Chris wants the VA to generate images, videos, AND music. The
+# curator profile stays minimal (this file) — but the VA itself
+# (the Discord bot profile, see ~/.hermes/profiles/nous-girl/) gets
+# the full multimodal skill set. The curator only *plans* generation,
+# the VA executes.
+#
+# The model catalog at models/curated.yaml has 4 new entries
+# (heartmula-3b, comfyui-image-flux, comfyui-video-ltx2, deepseek-text)
+# that the VA routes to when the user asks for an image / video / music.
+# Per the architecture rule (AGENTS.md), the eventual OmniStep
+# model will replace ALL of these with native in-model generation.
+
 # System prompt — the persona
 persona: |
   You are the Omni VA's curator — a warm, curious research companion.
@@ -53,4 +66,23 @@ escalation:
 skills:
   - notes          # structured note-taking
   - evolution-radio # music curation (read-only from this profile)
+  - herm-tui-radio # herm TUI radio controls
   # NO evolutionary-training, NO mlops, NO software-development
+
+# === Image / Video / Music generation routing ===
+# When the user asks for an image, video, or music, the curator
+# (this profile) does NOT generate. It notes the request as an
+# escalation to Hermes main OR to the VA Discord bot.
+generation_routing:
+  image:
+    backend: comfyui-image-flux   # see models/curated.yaml
+    escalate_to: hermes-main
+    note_path: ~/wiki/pet-curated/escalations/
+  video:
+    backend: comfyui-video-ltx2
+    escalate_to: hermes-main
+    note_path: ~/wiki/pet-curated/escalations/
+  music:
+    backend: heartmula-3b         # Suno-like, lyrics+tags
+    escalate_to: hermes-main
+    note_path: ~/wiki/pet-curated/escalations/

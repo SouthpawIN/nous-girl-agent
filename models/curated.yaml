@@ -167,7 +167,7 @@ models:
 
   # === FUTURE / PENDING ===
   - id: omni-step
-    display_name: OmniStep (placeholder for flagship)
+    display_name: OmniStep (upcoming, new architecture)
     tier: multimodal-native
     backend: llama.cpp
     model_path: null
@@ -179,14 +179,130 @@ models:
       source: model
       edge_voice: en-US-AvaNeural
     music:
-      source: model
+      source: ace-step
       playlist: plugins/evolution-radio/playlists/default.json
     capabilities: [text, voice, music, vision, tools]
     notes: |
-      Placeholder for the flagship ~32A8B MoE. Will be multimodal native:
-      text + voice + music + vision, all from one model.
-      Awaiting Stage 4 (YaRN 256K) and Stage 5 (plugin wiring) of the
-      OmniSenter pipeline before this entry is final.
+      **Updated 2026-06-08 per the architecture simplification.**
+      The new OmniStep (~12B/3B) will be built from four mandatory blocks:
+        1. Cosmos (multimodal base)
+        2. Nemotron 0.6B streaming ASR (speech input)
+        3. The 8B SFT we're training (agentic core)
+        4. Upgraded ACE-Step (music — always mandatory)
+      Music is in the DNA — not a bolt-on. Same for the larger
+      OmniSenter 32A8B flagship.
+      See wiki/concepts and blog/the-omni-family.md for the full
+      lineage. Will be served as two variants: Standard (no
+      self-evolution) and Ohm (with the .ohm self-evolution bundle).
+
+# === MULTIMODAL EXTENSIONS (2026-06-08) ===
+# Chris wants Nous Girl (the VA) to generate images, videos, AND
+# music via Discord. These entries are the "composers" — each one
+# is a separate backend the VA can route a request to. The main
+# chat model (qwen-omni-3b / omni-step) calls into these when the
+# user asks for an image / video / music.
+
+  - id: heartmula-3b
+    display_name: HeartMuLa 3B (music generation)
+    tier: text-with-tts
+    backend: heartmula
+    model_path: ~/Models/heartlib/heartmula-3b/
+    api_base: null
+    api_key_env: null
+    default: false
+    eikon: nous-assistant
+    role: music-generation
+    purpose: lyrics+tags → full song
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: heartmula
+      playlist: null
+      generation_config:
+        lazy_load: true        # 8GB VRAM minimum with this
+        model_size: 3b         # or 7b (16GB+ VRAM)
+    capabilities: [music]
+    notes: |
+      Apache-2.0, Suno-like, lyrics + tags → full song. Local.
+      Stand-in for the ACE-Step merge until OmniStep ships.
+      Hardware: 8GB VRAM min (lazy_load), 16GB+ recommended.
+      Multi-GPU: --mula_device cuda:0 --codec_device cuda:1.
+      Installed via the `heartmula` skill.
+
+  - id: comfyui-image-flux
+    display_name: ComfyUI + Flux (image generation)
+    tier: text-with-tts
+    backend: comfyui
+    model_path: null
+    api_base: http://127.0.0.1:8188/
+    api_key_env: null
+    default: false
+    eikon: nous-assistant
+    role: image-generation
+    purpose: text prompt → high-quality image
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]   # image-gen via tools
+    notes: |
+      ComfyUI REST API at :8188. Flux models for high-quality
+      image generation. Workflows parameterized via the comfyui
+      skill. Stand-in until OmniStep ships (OmniStep will do
+      image gen natively).
+
+  - id: comfyui-video-ltx2
+    display_name: ComfyUI + LTX-2 (video generation)
+    tier: text-with-tts
+    backend: comfyui
+    model_path: null
+    api_base: http://127.0.0.1:8188/
+    api_key_env: null
+    default: false
+    eikon: nous-assistant
+    role: video-generation
+    purpose: text prompt → short video clip
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]   # video-gen via tools
+    notes: |
+      ComfyUI REST API at :8188. LTX-2 workflow for text → video.
+      Same backend as image gen, different workflow. Stand-in
+      until OmniStep ships (OmniStep will do video gen natively).
+      Local models live in ~/Models/storage/ltx-2/.
+
+  - id: deepseek-text
+    display_name: DeepSeek (text backbone, reliable fallback)
+    tier: text-with-tts
+    backend: openai-compat
+    model_path: null
+    api_base: https://api.deepseek.com/v1
+    api_key_env: DEEPSEEK_API_KEY
+    default: false
+    eikon: nous-assistant
+    role: text-backbone
+    purpose: reliable text + reasoning when OmniStep isn't enough
+    voice:
+      source: edge-tts
+      edge_voice: en-US-AvaNeural
+    music:
+      source: playlist
+      playlist: plugins/evolution-radio/playlists/default.json
+    capabilities: [text, tools]
+    notes: |
+      **Per Chris 2026-06-08:** "use a more reliable model such as
+      DeepSeek or MiniMax" for the text backbone when OmniStep isn't
+      agentic enough. DeepSeek is the cloud API option. Local
+      alternative: MiniMax M3 (served via the local inference
+      box) or Darwin-28B-REASON on :11500.
+      Set DEEPSEEK_API_KEY in the env to enable.
 
 
 # Auxiliary models (not the chat model — escalation, vision, music, etc.)
