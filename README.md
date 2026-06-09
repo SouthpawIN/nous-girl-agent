@@ -140,6 +140,7 @@ nous-girl-agent/
 
 - **Personal site:** https://southpawin.github.io/
 - **Blog:** https://southpawin.github.io/blog/
+- 📚 **Master wiki + blog catalog:** [evolutionary-training/wiki](https://github.com/SouthpawIN/evolutionary-training/blob/master/wiki/README.md) — the consolidated knowledge base for the OmniSenter project, in catalog order.
 - **OmniSenter pipeline:** https://github.com/SouthpawIN/evolutionary-training
 - **Evolutionary Radio (upstream):** https://github.com/SouthpawIN/evolutionary-radio
 - **Hermes Agent:** https://github.com/SouthpawIN/hermes-agent
