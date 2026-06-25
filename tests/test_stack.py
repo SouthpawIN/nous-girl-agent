@@ -62,8 +62,12 @@ class StackSmokeTest(unittest.TestCase):
         import yaml
         with open(_REPO_ROOT / "models" / "curated.yaml") as f:
             data = yaml.safe_load(f)
-        valid_tiers = {"multimodal-native", "text-with-tts", "api-combo"}
-        valid_backends = {"llama.cpp", "ollama", "openai-compat", "nous-portal"}
+        valid_tiers = {"multimodal-native", "text-with-tts", "api-combo", "generation-backend", "remote-backbone"}
+        valid_backends = {
+            "llama.cpp", "ollama", "openai-compat", "nous-portal",
+            # Generation backends — used for image/video/music, not chat (2026-06-08 multimodal wiring)
+            "heartmula", "comfyui", "comfyui-image", "comfyui-video",
+        }
         for m in data["models"]:
             for field in ("id", "display_name", "tier", "backend", "eikon", "capabilities"):
                 self.assertIn(field, m, f"model {m.get('id', '?')} missing {field}")
