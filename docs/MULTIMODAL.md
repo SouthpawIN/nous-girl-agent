@@ -2,7 +2,7 @@
 
 > **Status:** 🟡 in progress · **Owner:** Agent 2 (this repo) · **Date:** 2026-06-08
 >
-> Chris wants the VA (Nous Girl, rebranded "Omni VA" per the Agent 1
+> the operator wants the VA (Nous Girl, rebranded "Omni VA" per the Agent 1
 > persona conventions) to generate **images, videos, AND music** via
 > Discord, in addition to text + voice. This doc captures how that's
 > wired together as of 2026-06-08.

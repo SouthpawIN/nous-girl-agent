@@ -18,7 +18,7 @@ toolsets:
   # No terminal. No code. No delegation. No computer_use.
 
 # === MULTIMODAL EXTENSIONS (2026-06-08) ===
-# Chris wants the VA to generate images, videos, AND music. The
+# the operator wants the VA to generate images, videos, AND music. The
 # curator profile stays minimal (this file) — but the VA itself
 # (the Discord bot profile, see ~/.hermes/profiles/nous-girl/) gets
 # the full multimodal skill set. The curator only *plans* generation,

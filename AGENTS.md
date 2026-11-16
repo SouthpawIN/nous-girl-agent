@@ -65,9 +65,9 @@ nous-assistant-agent/
 1. **Run tests** before pushing: `python3 -m unittest discover -s tests`
 2. **Validate YAML** before pushing: `python3 -c "import yaml; yaml.safe_load(open('models/curated.yaml'))"`
 3. **Update both the wiki and the README** when adding new features
-4. **Commit often with clear messages** — Chris wants constant GitHub updates
-5. **Speak over voice when Chris asks** — the TTS bubble in the chat
-   delivers audio; Chris is on a Surface Duo via SSH
+4. **Commit often with clear messages** — the operator wants constant GitHub updates
+5. **Speak over voice when the operator asks** — the TTS bubble in the chat
+   delivers audio; the operator is on a Surface Duo via SSH
 
 ## Architectural rules
 

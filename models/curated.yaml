@@ -196,7 +196,7 @@ models:
       self-evolution) and Ohm (with the .ohm self-evolution bundle).
 
 # === MULTIMODAL EXTENSIONS (2026-06-08) ===
-# Chris wants Nous Girl (the VA) to generate images, videos, AND
+# the operator wants Nous Girl (the VA) to generate images, videos, AND
 # music via Discord. These entries are the "composers" — each one
 # is a separate backend the VA can route a request to. The main
 # chat model (qwen-omni-3b / omni-step) calls into these when the
@@ -297,7 +297,7 @@ models:
       playlist: plugins/evolution-radio/playlists/default.json
     capabilities: [text, tools]
     notes: |
-      **Per Chris 2026-06-08:** "use a more reliable model such as
+      **Per the operator 2026-06-08:** "use a more reliable model such as
       DeepSeek or MiniMax" for the text backbone when OmniStep isn't
       agentic enough. DeepSeek is the cloud API option. Local
       alternative: MiniMax M3 (served via the local inference
